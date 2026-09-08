@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MYOB AccountRight Import Checker</title>
+  <meta name="description" content="Check common formatting and structural problems in MYOB AccountRight Sales - Items import files before importing them.">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 820px;
+      margin: 60px auto;
+      padding: 0 24px;
+      line-height: 1.6;
+      color: #222;
+    }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 36px; }
+    .subtitle {
+      font-size: 1.2rem;
+      color: #555;
+    }
+    .highlight {
+      background: #f5f5f5;
+      padding: 18px 22px;
+      border-radius: 8px;
+      margin: 28px 0;
+    }
+    footer {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>MYOB AccountRight Import Checker</h1>
+
+  <p class="subtitle">
+    Check Sales – Items import files for common formatting and structural
+    problems before importing them into MYOB AccountRight.
+  </p>
+
+  <div class="highlight">
+    <strong>Local Windows utility.</strong><br>
+    Your accounting files stay on your computer. No upload, account,
+    cloud service, or external API is required.
+  </div>
+
+  <h2>What it checks</h2>
+
+  <ul>
+    <li>Common Sales – Items field-format problems</li>
+    <li>Import-file structure and transaction separators</li>
+    <li>Selected numeric and field-length constraints</li>
+    <li>Optional comparison with a template exported from MYOB AccountRight</li>
+  </ul>
+
+  <h2>Safe fixes</h2>
+
+  <p>
+    When a mechanical issue can be corrected safely, the application can
+    create a corrected copy. Your original file is never overwritten.
+  </p>
+
+  <h2>System requirements</h2>
+
+  <p>
+    Windows 10 or Windows 11, 64-bit.
+  </p>
+
+  <h2>Current release</h2>
+
+  <p>
+    Version 0.9 beta.
+  </p>
+
+  <h2>Important limitations</h2>
+
+  <p>
+    The application checks common import-file problems. It does not
+    guarantee that MYOB AccountRight will accept a file and does not
+    validate accounting correctness.
+  </p>
+
+  <p>
+    Because it operates offline, it cannot verify whether customers,
+    items, jobs, tax/GST codes, or other records exist in your MYOB
+    company file.
+  </p>
+
+  <footer>
+    MYOB AccountRight Import Checker is independent software and is not
+    affiliated with, endorsed by, or sponsored by MYOB.
+  </footer>
+
+</body>
+</html>
