@@ -3,12 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Check MYOB AccountRight Sales – Items import files for common formatting and structural problems before importing them. Offline Windows utility.">
+  <meta name="description" content="Check MYOB AccountRight Sales – Items CSV/TXT import files for common formatting, invalid amount, field-length and transaction-separator problems before importing. Offline Windows utility.">
   <meta name="robots" content="index,follow">
   <meta property="og:title" content="MYOB AccountRight Import Checker">
-  <meta property="og:description" content="Check common Sales – Items import-file problems before importing into MYOB AccountRight.">
+  <meta property="og:description" content="Check MYOB AccountRight Sales – Items CSV/TXT files for common formatting, invalid amount and transaction-separator problems before import.">
   <meta property="og:type" content="website">
-  <title>MYOB AccountRight Import Checker | AileDeMiel Software</title>
+  <meta property="og:url" content="https://ailedemiel.github.io/myob-import-checker/">
+  <link rel="canonical" href="https://ailedemiel.github.io/myob-import-checker/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MYOB AccountRight Import Checker">
+  <meta name="twitter:description" content="Offline Windows checker for common MYOB AccountRight Sales – Items import-file problems.">
+  <title>MYOB Import Checker for AccountRight Sales – Items | AileDeMiel Software</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "MYOB AccountRight Import Checker",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Windows 10, Windows 11",
+    "description": "Offline Windows utility that checks MYOB AccountRight Sales – Items import files for common formatting and structural problems before import.",
+    "url": "https://ailedemiel.github.io/myob-import-checker/",
+    "offers": {
+      "@type": "Offer",
+      "price": "9.99",
+      "priceCurrency": "USD",
+      "url": "https://ailedemiel.lemonsqueezy.com/checkout/buy/7c38214f-1a0c-4073-a9ed-bb541a9e857e",
+      "availability": "https://schema.org/InStock"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "AileDeMiel Software"
+    }
+  }
+  </script>
   <style>
     :root {
       --bg: #f7f8fc;
@@ -398,7 +425,7 @@
         <div>
           <div class="eyebrow">Offline Windows utility</div>
           <h1>Check your MYOB import file <span class="gradient">before it fails.</span></h1>
-          <p class="lead">MYOB AccountRight Import Checker checks Sales – Items import files for common formatting and structural problems before you import them.</p>
+          <p class="lead">MYOB AccountRight Import Checker checks Sales – Items CSV and TXT import files for common formatting and structural problems before you import them, including selected invalid numeric values, field-length issues and transaction separators.</p>
 
           <div class="cta-row">
             <a class="button primary" href="https://ailedemiel.lemonsqueezy.com/checkout/buy/7c38214f-1a0c-4073-a9ed-bb541a9e857e" target="_blank" rel="noopener noreferrer">Buy now — $9.99</a>
@@ -441,6 +468,22 @@
             <p>Optionally compare the file with a template exported from MYOB AccountRight.</p>
           </article>
         </div>
+      </section>
+
+      <section id="common-import-problems">
+        <div class="section-head">
+          <h2>Common MYOB AccountRight import problems it can help detect.</h2>
+          <p>Sales – Items imports can fail because of small file-format differences. The checker looks for several common issues before you try the import.</p>
+        </div>
+
+        <ul class="feature-list">
+          <li>Invalid or malformed numeric values in selected Sales – Items fields</li>
+          <li>Currency-style formatting that can cause amount fields to be rejected</li>
+          <li>Unexpected quotation or delimiter problems in CSV/TXT files</li>
+          <li>Missing or redundant blank transaction separators</li>
+          <li>Field values that exceed selected MYOB Sales – Items length limits</li>
+          <li>Differences from an optional AccountRight export template</li>
+        </ul>
       </section>
 
       <section id="how-it-works">
@@ -539,6 +582,10 @@
           <details>
             <summary>Can it verify customers, items or tax codes inside MYOB?</summary>
             <p>No. It operates offline and does not connect to your MYOB company file.</p>
+          </details>
+          <details>
+            <summary>Can it help with MYOB Error -25: Invalid amount?</summary>
+            <p>It can detect some file problems that may contribute to an Invalid amount error, such as malformed numeric values or certain formatting issues. Error -25 can have more than one cause, so the application does not guarantee that it will identify or fix every Error -25 case.</p>
           </details>
           <details>
             <summary>What are the system requirements?</summary>
