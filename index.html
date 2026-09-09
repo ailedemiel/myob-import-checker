@@ -3,100 +3,568 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MYOB AccountRight Import Checker</title>
-  <meta name="description" content="Check common formatting and structural problems in MYOB AccountRight Sales - Items import files before importing them.">
+  <meta name="description" content="Check MYOB AccountRight Sales – Items import files for common formatting and structural problems before importing them. Offline Windows utility.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="MYOB AccountRight Import Checker">
+  <meta property="og:description" content="Check common Sales – Items import-file problems before importing into MYOB AccountRight.">
+  <meta property="og:type" content="website">
+  <title>MYOB AccountRight Import Checker | AileDeMiel Software</title>
   <style>
+    :root {
+      --bg: #f7f8fc;
+      --surface: #ffffff;
+      --surface-soft: #f2f3fb;
+      --text: #11152a;
+      --muted: #5d6275;
+      --line: #e2e5ef;
+      --primary: #6235e7;
+      --primary-dark: #4420b6;
+      --accent: #7a5cff;
+      --shadow: 0 18px 50px rgba(26, 22, 70, 0.10);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: Arial, sans-serif;
-      max-width: 820px;
-      margin: 60px auto;
-      padding: 0 24px;
+      margin: 0;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(122, 92, 255, .10), transparent 28%),
+        linear-gradient(180deg, #fff 0%, var(--bg) 42%, #fff 100%);
       line-height: 1.6;
-      color: #222;
     }
-    h1 { margin-bottom: 8px; }
-    h2 { margin-top: 36px; }
-    .subtitle {
-      font-size: 1.2rem;
-      color: #555;
+
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .wrap {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
     }
-    .highlight {
-      background: #f5f5f5;
-      padding: 18px 22px;
-      border-radius: 8px;
-      margin: 28px 0;
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding: 24px 0;
     }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .brand img {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .brand span { font-size: 1.05rem; }
+
+    .status-pill {
+      border: 1px solid #ddd8ff;
+      background: #f4f1ff;
+      color: var(--primary-dark);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: .86rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: 56px;
+      align-items: center;
+      padding: 76px 0 68px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-size: .88rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      background: #f0edff;
+      border: 1px solid #ddd6ff;
+      border-radius: 999px;
+      padding: 7px 11px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 6vw, 5.1rem);
+      line-height: .98;
+      letter-spacing: -.055em;
+      margin: 0 0 22px;
+      max-width: 760px;
+    }
+
+    h1 .gradient {
+      background: linear-gradient(135deg, var(--primary), #8a5cff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lead {
+      font-size: clamp(1.08rem, 1.8vw, 1.28rem);
+      color: var(--muted);
+      max-width: 690px;
+      margin: 0 0 28px;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: 13px;
+      text-decoration: none;
+      font-weight: 800;
+      border: 1px solid transparent;
+    }
+
+    .button.primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), #8255f2);
+      box-shadow: 0 10px 26px rgba(98, 53, 231, .24);
+      cursor: default;
+    }
+
+    .button.secondary {
+      background: #fff;
+      border-color: var(--line);
+      color: var(--text);
+    }
+
+    .price-note {
+      color: var(--muted);
+      font-size: .92rem;
+      margin: 0;
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .trust-chip {
+      padding: 8px 11px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #3e4354;
+      font-size: .86rem;
+      font-weight: 700;
+    }
+
+    .hero-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255,255,255,.82);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-card img {
+      border-radius: 15px;
+      width: 100%;
+    }
+
+    section { padding: 76px 0; }
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 34px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+      margin: 0 0 14px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin: 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: 0 10px 28px rgba(26, 22, 70, .045);
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: #f0edff;
+      color: var(--primary);
+      font-weight: 900;
+      margin-bottom: 18px;
+      font-size: 1.15rem;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1.12rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .steps { counter-reset: steps; }
+    .step { position: relative; }
+    .step::before {
+      counter-increment: steps;
+      content: counter(steps);
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 24px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .feature-list li {
+      padding: 16px 18px 16px 44px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 14px;
+      position: relative;
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 17px;
+      top: 15px;
+      color: var(--primary);
+      font-weight: 900;
+    }
+
+    .safe-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      padding: 32px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #17152b, #272046);
+      color: #fff;
+    }
+
+    .safe-box h2 { margin-bottom: 12px; }
+    .safe-box p { color: #d2cee5; margin: 0; }
+
+    .safe-list {
+      margin: 0;
+      padding-left: 20px;
+      color: #eeecf8;
+    }
+
+    .safe-list li + li { margin-top: 9px; }
+
+    .faq {
+      display: grid;
+      gap: 12px;
+    }
+
+    details {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+
+    summary {
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    details p {
+      margin: 12px 0 0;
+      color: var(--muted);
+    }
+
+    .bottom-cta {
+      text-align: center;
+      padding: 54px 26px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, #f0edff, #fbfaff);
+      border: 1px solid #ddd6ff;
+    }
+
+    .bottom-cta h2 { max-width: 730px; margin: 0 auto 14px; }
+    .bottom-cta p { color: var(--muted); margin: 0 auto 24px; max-width: 650px; }
+
     footer {
-      margin-top: 50px;
-      padding-top: 20px;
-      border-top: 1px solid #ddd;
-      color: #666;
-      font-size: 0.9rem;
+      padding: 36px 0 52px;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .footer-inner {
+      border-top: 1px solid var(--line);
+      padding-top: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .footer-brand { font-weight: 800; color: var(--text); }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; gap: 34px; padding-top: 48px; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .feature-list { grid-template-columns: 1fr; }
+      .safe-box { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; }
+    }
+
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 26px, 1120px); }
+      header { align-items: flex-start; }
+      .brand span { display: none; }
+      .hero { padding-top: 34px; }
+      h1 { font-size: 2.72rem; }
+      section { padding: 56px 0; }
+      .cta-row { align-items: stretch; }
+      .button { width: 100%; }
     }
   </style>
 </head>
-
 <body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <img src="logo.png" alt="AileDeMiel Software logo">
+        <span>AileDeMiel Software</span>
+      </div>
+      <div class="status-pill">Version 0.9 beta</div>
+    </header>
 
-  <h1>MYOB AccountRight Import Checker</h1>
+    <main>
+      <section class="hero">
+        <div>
+          <div class="eyebrow">Offline Windows utility</div>
+          <h1>Check your MYOB import file <span class="gradient">before it fails.</span></h1>
+          <p class="lead">MYOB AccountRight Import Checker checks Sales – Items import files for common formatting and structural problems before you import them.</p>
 
-  <p class="subtitle">
-    Check Sales – Items import files for common formatting and structural
-    problems before importing them into MYOB AccountRight.
-  </p>
+          <div class="cta-row">
+            <span class="button primary" aria-disabled="true">Available soon — $9.99</span>
+            <a class="button secondary" href="#how-it-works">See how it works</a>
+          </div>
+          <p class="price-note">One-time purchase · No subscription · Windows 10/11 64-bit</p>
 
-  <div class="highlight">
-    <strong>Local Windows utility.</strong><br>
-    Your accounting files stay on your computer. No upload, account,
-    cloud service, or external API is required.
+          <div class="trust-row">
+            <span class="trust-chip">100% offline</span>
+            <span class="trust-chip">No account required</span>
+            <span class="trust-chip">Original file preserved</span>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <img src="product-preview.png" alt="MYOB AccountRight Import Checker showing example import-file findings">
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Catch common import-file problems earlier.</h2>
+          <p>Instead of discovering basic file-format issues after an unsuccessful import, check the file locally first.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon">✓</div>
+            <h3>Check formatting</h3>
+            <p>Detect common Sales – Items field-format, numeric and field-length problems.</p>
+          </article>
+          <article class="card">
+            <div class="icon">≡</div>
+            <h3>Check structure</h3>
+            <p>Review import-file structure and transaction separators before import.</p>
+          </article>
+          <article class="card">
+            <div class="icon">↔</div>
+            <h3>Compare a template</h3>
+            <p>Optionally compare the file with a template exported from MYOB AccountRight.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="how-it-works">
+        <div class="section-head">
+          <h2>Three simple steps.</h2>
+          <p>No MYOB login, cloud upload or external API is required.</p>
+        </div>
+
+        <div class="grid-3 steps">
+          <article class="card step">
+            <h3>Choose your file</h3>
+            <p>Select the Sales – Items import file you want to check.</p>
+          </article>
+          <article class="card step">
+            <h3>Run the check</h3>
+            <p>The app reports detected errors, warnings and any available safe fixes.</p>
+          </article>
+          <article class="card step">
+            <h3>Create a fixed copy</h3>
+            <p>When a mechanical issue can be fixed safely, create a separate corrected copy.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>What it checks.</h2>
+          <p>The current release focuses specifically on common MYOB AccountRight Sales – Items import-file issues.</p>
+        </div>
+
+        <ul class="feature-list">
+          <li>Common Sales – Items field-format problems</li>
+          <li>Import-file structure and transaction separators</li>
+          <li>Selected numeric constraints</li>
+          <li>Selected field-length constraints</li>
+          <li>Optional MYOB template comparison</li>
+          <li>Safe mechanical fixes where available</li>
+        </ul>
+      </section>
+
+      <section>
+        <div class="safe-box">
+          <div>
+            <h2>Your accounting files stay on your computer.</h2>
+            <p>MYOB Import Checker is a local Windows application. Your files are not uploaded to a server or sent to an external API.</p>
+          </div>
+          <ul class="safe-list">
+            <li>No cloud service required</li>
+            <li>No MYOB account connection required</li>
+            <li>No external API required</li>
+            <li>Your original file is never overwritten</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Important limitations.</h2>
+          <p>The checker is deliberately conservative about what it promises and changes automatically.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>No acceptance guarantee</h3>
+            <p>The application does not guarantee that MYOB AccountRight will accept a file.</p>
+          </article>
+          <article class="card">
+            <h3>No accounting validation</h3>
+            <p>It checks common import-file problems; it does not validate accounting correctness.</p>
+          </article>
+          <article class="card">
+            <h3>No company-file lookup</h3>
+            <p>Because it works offline, it cannot verify whether customers, items, jobs, tax/GST codes or other records exist in your MYOB company file.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>FAQ</h2>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>Does it upload my accounting files?</summary>
+            <p>No. The application runs locally on your Windows PC. No cloud upload or external API is required.</p>
+          </details>
+          <details>
+            <summary>Will it change my original file?</summary>
+            <p>No. When a supported safe fix is available, the application creates a separate corrected copy instead of overwriting the source file.</p>
+          </details>
+          <details>
+            <summary>Which import type does version 0.9 beta focus on?</summary>
+            <p>The current product includes explicit checks for MYOB AccountRight Sales – Items imports, plus generic structural checking.</p>
+          </details>
+          <details>
+            <summary>Can it verify customers, items or tax codes inside MYOB?</summary>
+            <p>No. It operates offline and does not connect to your MYOB company file.</p>
+          </details>
+          <details>
+            <summary>What are the system requirements?</summary>
+            <p>Windows 10 or Windows 11, 64-bit.</p>
+          </details>
+        </div>
+      </section>
+
+      <section>
+        <div class="bottom-cta">
+          <h2>Check the file before you import it.</h2>
+          <p>MYOB AccountRight Import Checker 0.9 beta will be available as a one-time $9.99 purchase.</p>
+          <span class="button primary" aria-disabled="true">Available soon — $9.99</span>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">AileDeMiel Software</div>
+          <div>Small, focused Windows utilities.</div>
+        </div>
+        <div>MYOB AccountRight Import Checker is independent software and is not affiliated with, endorsed by, or sponsored by MYOB.</div>
+      </div>
+    </footer>
   </div>
-
-  <h2>What it checks</h2>
-
-  <ul>
-    <li>Common Sales – Items field-format problems</li>
-    <li>Import-file structure and transaction separators</li>
-    <li>Selected numeric and field-length constraints</li>
-    <li>Optional comparison with a template exported from MYOB AccountRight</li>
-  </ul>
-
-  <h2>Safe fixes</h2>
-
-  <p>
-    When a mechanical issue can be corrected safely, the application can
-    create a corrected copy. Your original file is never overwritten.
-  </p>
-
-  <h2>System requirements</h2>
-
-  <p>
-    Windows 10 or Windows 11, 64-bit.
-  </p>
-
-  <h2>Current release</h2>
-
-  <p>
-    Version 0.9 beta.
-  </p>
-
-  <h2>Important limitations</h2>
-
-  <p>
-    The application checks common import-file problems. It does not
-    guarantee that MYOB AccountRight will accept a file and does not
-    validate accounting correctness.
-  </p>
-
-  <p>
-    Because it operates offline, it cannot verify whether customers,
-    items, jobs, tax/GST codes, or other records exist in your MYOB
-    company file.
-  </p>
-
-  <footer>
-    MYOB AccountRight Import Checker is independent software and is not
-    affiliated with, endorsed by, or sponsored by MYOB.
-  </footer>
-
 </body>
 </html>
