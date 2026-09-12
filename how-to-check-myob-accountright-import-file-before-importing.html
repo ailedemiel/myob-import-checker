@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn how to check a MYOB AccountRight Sales – Items CSV or TXT import file before importing it, including formatting, numeric values, separators, field lengths and template comparison.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://ailedemiel.github.io/myob-import-checker/how-to-check-myob-accountright-import-file-before-importing.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Check a MYOB AccountRight Import File Before Importing">
+  <meta property="og:description" content="A practical pre-import checklist for MYOB AccountRight Sales – Items CSV and TXT files.">
+  <meta property="og:url" content="https://ailedemiel.github.io/myob-import-checker/how-to-check-myob-accountright-import-file-before-importing.html">
+  <title>How to Check a MYOB AccountRight Import File Before Importing | AileDeMiel Software</title>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Article",
+    "headline":"How to Check a MYOB AccountRight Import File Before Importing",
+    "description":"A practical pre-import checklist for MYOB AccountRight Sales – Items CSV and TXT files.",
+    "author":{"@type":"Organization","name":"AileDeMiel Software"},
+    "publisher":{"@type":"Organization","name":"AileDeMiel Software"},
+    "mainEntityOfPage":"https://ailedemiel.github.io/myob-import-checker/how-to-check-myob-accountright-import-file-before-importing.html"
+  }
+  </script>
+  <style>
+    :root{--bg:#f7f8fc;--surface:#fff;--text:#11152a;--muted:#5d6275;--line:#e2e5ef;--primary:#6235e7;--primary-dark:#4420b6;--shadow:0 18px 50px rgba(26,22,70,.10);--radius:20px}
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 10% 0%,rgba(122,92,255,.10),transparent 28%),linear-gradient(180deg,#fff 0%,var(--bg) 42%,#fff 100%);line-height:1.7}
+    a{color:var(--primary-dark)} .wrap{width:min(1000px,calc(100% - 40px));margin:auto}
+    header{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;text-decoration:none;color:var(--text)} .brand img{width:48px;height:48px;border-radius:12px;object-fit:cover}
+    .button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border-radius:13px;text-decoration:none;font-weight:800;border:1px solid transparent}
+    .button.primary{color:#fff;background:linear-gradient(135deg,var(--primary),#8255f2);box-shadow:0 10px 26px rgba(98,53,231,.24)}
+    .hero{padding:62px 0 48px;border-bottom:1px solid var(--line)} .crumb{font-size:14px;color:var(--muted);margin-bottom:22px}
+    h1{font-size:clamp(2.5rem,6vw,4.8rem);line-height:1.02;letter-spacing:-.05em;margin:0 0 20px} .lead{font-size:1.2rem;color:var(--muted);max-width:790px}
+    main{max-width:820px;margin:0 auto;padding:56px 20px 76px} h2{font-size:2rem;line-height:1.2;letter-spacing:-.03em;margin:48px 0 14px} h3{font-size:1.2rem;margin:28px 0 8px}
+    p,li{font-size:17px} li{margin:8px 0} .note{padding:20px 22px;border:1px solid #ddd6ff;background:#f4f1ff;border-radius:16px;margin:26px 0}
+    .example{padding:24px;border:1px solid var(--line);background:#fff;border-radius:var(--radius);box-shadow:0 10px 28px rgba(26,22,70,.045);margin:28px 0}
+    .check{list-style:none;padding:0} .check li{position:relative;padding-left:28px} .check li:before{content:"✓";position:absolute;left:0;color:var(--primary);font-weight:900}
+    .cta{margin-top:54px;padding:32px;border-radius:24px;background:linear-gradient(135deg,#17152b,#272046);color:#fff} .cta h2{margin-top:0;color:#fff} .cta p{color:#d2cee5} .cta .button{background:#fff;color:var(--primary-dark)}
+    .small{font-size:14px;color:#d2cee5} footer{padding:34px 0 48px;border-top:1px solid var(--line);color:var(--muted);font-size:.88rem}
+    @media(max-width:560px){.wrap{width:min(100% - 26px,1000px)}.brand span{display:none}h1{font-size:2.65rem}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="https://ailedemiel.github.io/myob-import-checker/"><img src="logo.png" alt="AileDeMiel Software logo"><span>AileDeMiel Software</span></a>
+      <a class="button primary" href="https://ailedemiel.lemonsqueezy.com/checkout/buy/7c38214f-1a0c-4073-a9ed-bb541a9e857e" target="_blank" rel="noopener noreferrer">Buy — $9.99</a>
+    </header>
+  </div>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="crumb"><a href="https://ailedemiel.github.io/myob-import-checker/">MYOB AccountRight Import Checker</a> → Import-file guide</div>
+      <h1>How to Check a MYOB AccountRight Import File Before Importing</h1>
+      <p class="lead">A practical pre-import checklist for Sales – Items CSV and TXT files: formatting, numeric values, transaction separators, field lengths and comparison with your own AccountRight export template.</p>
+    </div>
+  </section>
+
+  <main>
+    <p>Import problems are easier to investigate before the file reaches MYOB AccountRight. A useful pre-import check focuses on the file itself: whether the structure is consistent, whether selected numeric fields contain clean values, whether transaction separators make sense, and whether the layout resembles the format you expect.</p>
+
+    <div class="note"><strong>Scope:</strong> this guide focuses on <strong>MYOB AccountRight Sales – Items</strong> import files. A file can pass these checks and still be rejected for another reason. File checking also cannot verify records inside your company file, such as whether a customer, item, job or tax/GST code exists.</div>
+
+    <h2>1. Keep the original import file unchanged</h2>
+    <p>Before fixing anything, preserve the CSV or TXT file you received or generated. If you make a correction, create a separate copy. This gives you a clean source to compare against if an import behaves differently after a change.</p>
+
+    <h2>2. Check the file structure</h2>
+    <p>Start with the basics. Confirm that the delimiter and quoting are consistent and that rows follow the intended Sales – Items layout. Small structural differences can make a file difficult to interpret even when the visible values look reasonable in a spreadsheet.</p>
+    <ul>
+      <li>Look for unexpected delimiters or quotation marks.</li>
+      <li>Check for missing or redundant blank transaction separators.</li>
+      <li>Confirm that records use a consistent column structure.</li>
+      <li>Be careful when saving through another application, which may alter CSV formatting.</li>
+    </ul>
+
+    <h2>3. Inspect numeric and amount fields</h2>
+    <p>Numeric fields should contain values in the format expected by the import layout. Currency symbols, malformed numbers or other presentation formatting can turn a value that looks fine to a person into problematic import data.</p>
+
+    <div class="example">
+      <h3 style="margin-top:0">Simple example</h3>
+      <p>A value displayed as <strong>$5.00</strong> may need to be represented as the plain numeric value <strong>5.00</strong> in a particular import field. A safe mechanical correction should change only the formatting that is known to be safe—not invent or recalculate accounting values.</p>
+    </div>
+
+    <h2>4. Check field lengths</h2>
+    <p>Some Sales – Items fields have practical length constraints. Long references or text values can therefore be worth checking before import. If a value exceeds a supported limit, review it rather than silently truncating business data.</p>
+
+    <h2>5. Treat missing values carefully</h2>
+    <p>Not every blank field means the same thing. For example, tax/GST information may depend on configuration elsewhere in AccountRight. Avoid filling missing business or accounting values merely to make the file look complete.</p>
+    <p>Likewise, a missing item identifier on a quantity-bearing Sales – Items row deserves attention, but a checker should explain the structural concern rather than pretend it has access to your company file.</p>
+
+    <h2>6. Check arithmetic warnings in context</h2>
+    <p>If the file contains quantity, price, discount and total information, make sure any arithmetic check accounts for the discount before reporting a mismatch. For example, quantity 2 × price 10 with a 10% discount produces a total of 18, not 20.</p>
+    <p>If the discount itself is malformed or ambiguous, it is safer to flag the underlying problem than to make a confident secondary arithmetic conclusion.</p>
+
+    <h2>7. Compare with an AccountRight export template when possible</h2>
+    <p>One practical way to reduce layout guesswork is to export the same type of data from AccountRight or an appropriate sample/company file and use that export as a reference template. Compare headers and structure with the file you plan to import.</p>
+    <p>A template comparison is useful evidence, but it still does not guarantee that every value in the new file is valid for your actual company file.</p>
+
+    <h2>8. Create a corrected copy only for safe mechanical fixes</h2>
+    <p>Automating a correction is appropriate when the change is mechanical and unambiguous. Examples can include supported formatting cleanup or separator repair. It is not appropriate to invent an item number, tax code, customer, account or other business value.</p>
+
+    <h2>Pre-import checklist</h2>
+    <ul class="check">
+      <li>Original CSV/TXT preserved</li>
+      <li>Correct Sales – Items import type confirmed</li>
+      <li>Delimiter and quoting checked</li>
+      <li>Transaction separators reviewed</li>
+      <li>Selected numeric fields contain clean numeric values</li>
+      <li>Currency-style formatting reviewed</li>
+      <li>Selected field lengths checked</li>
+      <li>Missing business/accounting values are not guessed</li>
+      <li>Discount-aware arithmetic checked where applicable</li>
+      <li>File compared with your own AccountRight export template when available</li>
+      <li>Any safe fixes written to a separate copy</li>
+    </ul>
+
+    <h2>What a file checker cannot tell you</h2>
+    <p>A local import-file checker cannot know everything AccountRight knows. Without connecting to your company file, it cannot confirm that customers, items, jobs, accounts, tax/GST codes or other records exist or are configured correctly. It also cannot guarantee that AccountRight will accept a file.</p>
+    <p>The useful goal is narrower: catch common structural and formatting problems <strong>before</strong> you attempt the import, while preserving the original file and avoiding unsafe accounting guesses.</p>
+
+    <div class="cta">
+      <h2>Want to check the file automatically?</h2>
+      <p><strong>MYOB AccountRight Import Checker</strong> is a focused offline Windows utility for Sales – Items CSV/TXT files. It checks common formatting and structural problems, reports warnings and errors, supports optional template comparison, and can create a separate corrected copy for supported safe mechanical fixes.</p>
+      <a class="button" href="https://ailedemiel.lemonsqueezy.com/checkout/buy/7c38214f-1a0c-4073-a9ed-bb541a9e857e" target="_blank" rel="noopener noreferrer">Buy MYOB Import Checker — $9.99</a>
+      <p class="small">Version 0.9.1 beta · Windows 10/11 64-bit · One-time purchase · No cloud account</p>
+    </div>
+
+    <p style="margin-top:32px"><a href="https://ailedemiel.github.io/myob-import-checker/">← See MYOB AccountRight Import Checker features and limitations</a></p>
+  </main>
+
+  <footer><div class="wrap">© 2026 AileDeMiel Software · MYOB AccountRight Import Checker is independent software and is not affiliated with, endorsed by, or sponsored by MYOB.</div></footer>
+</body>
+</html>
